@@ -108,7 +108,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => RegisterHomePage(),
+          builder: (context) => RegisterHome(),
         ));
         break;
       case 2:
