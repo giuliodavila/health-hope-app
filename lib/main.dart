@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:health_hope_app/Pages/login_page.dart';
 import 'package:health_hope_app/widget/navigation_drawer.dart';
 
 Future main() async {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     debugShowCheckedModeBanner: false,
     title: title,
     theme: ThemeData(primarySwatch: Colors.blue),
-    home: Home(),
+    home: LoginPage(),
   );
 }
 

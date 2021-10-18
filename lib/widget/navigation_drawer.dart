@@ -1,14 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:health_hope_app/Pages/fierbase_service.dart';
 import 'package:health_hope_app/Pages/profile_page.dart';
 import 'package:health_hope_app/Pages/register_home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
+
+  Service service = Service();
+
   @override
   Widget build(BuildContext context) {
-    final name = 'Giaunluca L.';
-    final email = 'lapagol@gmail.com';
+    final name = 'Admin';
+    final email = 'admin@gmail.com';
     final urlImage =
         'https://www.miraflores.gob.pe/wp-content/uploads/2020/11/026564B5-F95A-4AA5-BE10-07FF8CBD60B7-701x1024.jpeg';
 
@@ -42,7 +48,18 @@ class NavigationDrawerWidget extends StatelessWidget {
             buildMenuItem(
                 text: 'Reportes',
                 icon: Icons.bar_chart_rounded,
-                onClicked: () => selectedItem(context, 4))
+                onClicked: () => selectedItem(context, 4)),
+            buildMenuItem(
+                text: 'Cerrar Sesión',
+                icon: Icons.logout,
+                onClicked: () async {
+            service.signOut(context);
+            // Aqui eliminaremos la clave cuando el usuario haga clic en el botón LogOut
+            SharedPreferences pref =
+            await SharedPreferences.getInstance();
+            pref.remove("email");
+            //Se elimina el email del usuario logueado haciendo click en el boton logOut
+            },)
           ],
         ),
       ),
