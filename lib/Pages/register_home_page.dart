@@ -4,7 +4,6 @@ import 'package:health_hope_app/Pages/register_medical_staff.dart';
 import 'package:health_hope_app/Pages/register_participant.dart';
 import 'package:health_hope_app/Pages/register_partner.dart';
 import 'package:health_hope_app/widget/button_widget.dart';
-import 'package:health_hope_app/widget/header_widget.dart';
 
 class RegisterHome extends StatefulWidget{
   @override

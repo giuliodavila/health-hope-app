@@ -66,7 +66,7 @@ class LoginPage extends StatelessWidget {
                     height: 55,
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(25)),
                       color: Colors.blue,
                       child: Text(
                         "Iniciar Sesión",

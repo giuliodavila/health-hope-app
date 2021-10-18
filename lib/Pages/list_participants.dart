@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_hope_app/Pages/list_participants.dart';
 
 class ListParticipants extends StatelessWidget {
   TextEditingController name = TextEditingController();
@@ -9,18 +9,13 @@ class ListParticipants extends StatelessWidget {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
-
+  //final _formKey = GlobalKey<FormState>();
+  final userReference = FirebaseDatabase.instance.reference().child('users');
   final firebase = FirebaseFirestore.instance;
 
-  create() async {
+  delete() async {
     try {
-      await firebase.collection("users").doc().set({
-        "name": name.text,
-        "surname": surname.text,
-        "email": email.text,
-        "password": password.text
-      });
+      await firebase.collection("users").doc().delete();
     } catch (e) {
       print(e);
     }
@@ -41,28 +36,75 @@ class ListParticipants extends StatelessWidget {
             child: StreamBuilder<QuerySnapshot>(
               stream: firebase.collection('users').snapshots(),
               builder: (context, snapshot) {
-                if(snapshot.hasData){
+                if (snapshot.hasData) {
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: ScrollPhysics(),
                     itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, i){
+                    itemBuilder: (context, i) {
                       QueryDocumentSnapshot x = snapshot.data!.docs[i];
-                      return ListTile(
-                          title: Text(x['name'] + ' ' + x['surname']),
-                          subtitle: Text(x['email']),
+                      return Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: (ListTile(
+                              title: Text(x['name'] + ' ' + x['surname']),
+                              subtitle: Text(x['email']),
+                            )),
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.blueAccent,
+                              ),
+                              onPressed: () {
+
+                              }),
+                        ],
                       );
-                  },
+                    },
                   );
-                }else {
+                } else {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
                 }
               },
-
             ),
           ),
         ));
   }
 }
+
+// void _showDialog(context, position) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: Text('Atención'),
+//         content: Text('¿Estás seguro que quieres eliminar este usuario?'),
+//         actions: <Widget>[
+//           IconButton(
+//             icon: Icon(
+//               Icons.delete,
+//               color: Colors.purple,
+//             ),
+//             onPressed: () {},
+//           ),
+//           new FlatButton(
+//             child: Text('Cancel'),
+//             onPressed: () {
+//               Navigator.of(context).pop();
+//             },
+//           ),
+//         ],
+//       );
+//     },
+//   );
+// }

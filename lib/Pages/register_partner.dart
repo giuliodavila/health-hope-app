@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_hope_app/Pages/list_participants.dart';
 import 'package:health_hope_app/Pages/list_partners.dart';
 
 class RegisterPartner extends StatelessWidget {
